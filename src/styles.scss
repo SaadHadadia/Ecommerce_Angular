@@ -1,2 +1,11 @@
 
 @import "tailwindcss";
+
+body {
+  background-color: var(--color-gray-100);
+}
+
+@theme {
+  // --colo
+  --color-blanchedalmond-hover: rgb(247, 182, 84);
+}
