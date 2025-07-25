@@ -62,7 +62,7 @@ export class OrderSummary {
   totalDiscount = computed(() => {
     let total = 0;
     for (const item of this.cartService.cart()) {
-      total += item.price * (item.discount ? item.discount / 100 : 0);
+      total += item.price - (item.discountedPrice ? item.discountedPrice : 0);
     }
     return total.toFixed(2);
   });
@@ -70,7 +70,7 @@ export class OrderSummary {
   totalPriceWithDiscount = computed(() => {
     let total = 0;
     for (const item of this.cartService.cart()) {
-      total += item.price - (item.price * (item.discount ? item.discount / 100 : 0));
+      total += item.discountedPrice ? item.discountedPrice : 0;
     }
     return (total + this.shippingCost).toFixed(2);
   });

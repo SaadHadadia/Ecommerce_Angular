@@ -8,12 +8,12 @@ import { Cart } from '../../../services/cart';
   template: `
     <div class="max-w-lg mx-auto p-4">
       <div class="bg-white shadow-md rounded-lg max-w-2xs relative">
-        <a href="/product/{{ product().id }}">
-          <img class="rounded-t-lg p-4" [src]="product().imageUrl" alt="product image">
+        <a href="/product/{{ product()._id }}">
+          <img class="rounded-t-lg p-4" [src]="product().image" alt="product image">
         </a>
         <div class="px-5 pb-5">
-          <a href="/product/{{ product().id }}">
-            <h3 class="text-gray-900 font-semibold text-lg tracking-tight">{{ product().name }}</h3>
+          <a href="/product/{{ product()._id }}">
+            <h3 class="text-gray-900 font-semibold text-lg tracking-tight">{{ product().title }}</h3>
           </a>
           <div class="flex items-center mt-2.5 mb-5">
             <svg class="w-4 h-4 text-yellow-300" fill="currentColor" viewBox="0 0 20 20"
@@ -51,7 +51,7 @@ import { Cart } from '../../../services/cart';
           <div class="flex items-center justify-between">
             <span class="text-xl font-bold text-gray-900">$ {{ product().price }}</span>
             <button
-              [disabled]="!product().quantity"
+              [disabled]="!product().stock"
               (click)="cartService.addToCart(product())"
               class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
               Add to cart
@@ -61,8 +61,8 @@ import { Cart } from '../../../services/cart';
 
         <span
           class="absolute top-2 right-2 text-[10px] font-bold"
-          [class]= "product().quantity ? 'text-green-500' : 'text-red-500'">
-          @if (product().quantity) { {{product().quantity}} left}
+          [class]= "product().stock ? 'text-green-500' : 'text-red-500'">
+          @if (product().stock) { {{product().stock}} left}
           @else { Out of Stock }
         </span>
           

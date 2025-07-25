@@ -10,12 +10,12 @@ import { Cart } from '../../../services/cart';
     <div class="grid grid-cols-5 gap-4 p-4 items-stresh">
       <div class="col-span-1 p-0">
         <img class=""
-        [src]="item().imageUrl" alt="product image">
+        [src]="item().image" alt="product image">
       </div>
       <div class="col-span-4 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between pr-6">
-            <p class="bold md:text-lg text-md">{{ item().name }}</p>
+            <p class="bold md:text-lg text-md">{{ item().title }}</p>
             <select aria-label="Quantity"
               class="py-0 px-1 border border-gray-200 focus:outline-none cursor-pointer rounded-md">
                 @for (i of [1, 2, 3, 4, 5]; track i) {
@@ -28,13 +28,13 @@ import { Cart } from '../../../services/cart';
           </div>
         </div>
         <div class="flex items-center justify-between pr-6">
-          <app-remove-button (buttonClicked)="cartService.removeFromCart(item().id)" />
+          <app-remove-button (buttonClicked)="cartService.removeFromCart(item()._id)" />
           <div>
-              @if (item().discount) {
-                <p class="text-xs line-through text-gray-400">{{item().getFormattedPrice()}}</p>
-                <p class="text-base font-bold text-orange-400">{{item().getDiscountedPrice()}}</p>
+              @if (item().discountedPrice && item().discountedPrice !== 0) {
+                <p class="text-xs line-through text-gray-400">{{item().price}}</p>
+                <p class="text-base font-bold text-orange-400">{{item().discountedPrice}}</p>
               } @else {
-                <p class="text-base font-bold text-orange-400">{{item().getFormattedPrice()}}</p>
+                <p class="text-base font-bold text-orange-400">{{item().price}}</p>
               }
           </div>
         </div>
