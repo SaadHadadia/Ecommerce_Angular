@@ -9,7 +9,7 @@ import { OrderSummary } from "./order-summary/order-summary";
   template: `
     <div class="grid md:grid-cols-3 md: grid-cols-1 gap-4 justify-center md:items-between md:mt-16 mt-20">
       <div class="md:col-span-2">
-        @for (item of cartService.cart(); track item.id) {
+        @for (item of cartService.cart(); track item._id) {
           <app-cart-items [item]="item"/>
         }
       </div>

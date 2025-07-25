@@ -7,7 +7,7 @@ import { ProductCard } from "./product-card/product-card";
   imports: [ProductCard],
   template: `
     <div class="md:p-8 p-0 grid lg:grid-cols-4 md:grid-cols-3 gaps-4 justify-center items-center md:mt-6 mt-14">
-      @for (product of products(); track product.id) {
+      @for (product of products(); track product._id) {
         <app-product-card [product]="product" />
       }
     </div>
