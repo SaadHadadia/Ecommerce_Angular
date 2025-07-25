@@ -6,7 +6,7 @@ import { ProductCard } from "./product-card/product-card";
   selector: 'app-products-list',
   imports: [ProductCard],
   template: `
-    <div class="md:p-8 p-0 grid md:grid-cols-4 gaps-4 justify-center items-center md:mt-6 mt-14">
+    <div class="md:p-8 p-0 grid lg:grid-cols-4 md:grid-cols-3 gaps-4 justify-center items-center md:mt-6 mt-14">
       @for (product of products(); track product.id) {
         <app-product-card [product]="product" />
       }

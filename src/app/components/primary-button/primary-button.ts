@@ -5,7 +5,7 @@ import { Component, input, output } from '@angular/core';
   imports: [],
   template: `
     <button
-      class="px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 bg-blanchedalmond-hover hover:bg-orange-400 focus:bg-orange-400 focus:outline-none focus:shadow-outline cursor-pointer flex items-center justify-center relative"
+      class="px-4 py-2 mt-2 text-sm font-semibold rounded-lg mt-0 hover:text-gray-900 focus:text-gray-900 bg-blanchedalmond-hover hover:bg-orange-400 focus:bg-orange-400 focus:outline-none focus:shadow-outline cursor-pointer flex items-center justify-center relative"
       (click)="buttonClicked.emit()">
       {{ label() }}
       @if (SvgPath()) {

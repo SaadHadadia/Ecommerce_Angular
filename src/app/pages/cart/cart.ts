@@ -1,18 +1,25 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, HostListener} from '@angular/core';
 import { CartItems } from "./cart-items/cart-items";
 import { Cart as CartService } from '../../services/cart';
+import { OrderSummary } from "./order-summary/order-summary";
 
 @Component({
   selector: 'app-cart',
-  imports: [CartItems],
+  imports: [CartItems, OrderSummary],
   template: `
     <div class="grid md:grid-cols-3 md: grid-cols-1 gap-4 justify-center md:items-between md:mt-16 mt-20">
-      <div class="md:col-span-2  border-2 border-gray-900">
+      <div class="md:col-span-2">
         @for (item of cartService.cart(); track item.id) {
           <app-cart-items [item]="item"/>
         }
       </div>
-      <div class="bg-green-600 h-9 md:col-span-1 hidden"></div>
+      @if (!isMobile) {
+        <div class="md:col-span-1 px-4">
+          <app-order-summary />
+        </div>
+      } @else {
+        
+      }
     </div>
   `,
   styles: `
@@ -33,5 +40,18 @@ import { Cart as CartService } from '../../services/cart';
 })
 
 export class Cart {
+  
   cartService = inject(CartService);
+
+  isMobile = window.innerWidth < 768;
+
+  @HostListener('window:resize', [])
+  onResize() {
+    this.isMobile = window.innerWidth < 768;
+  }
+
+  ngOnInit() {
+    this.isMobile = window.innerWidth < 768;
+  }
+
 }
