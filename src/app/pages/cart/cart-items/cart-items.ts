@@ -1,5 +1,5 @@
 import { Component, inject, input } from '@angular/core';
-import Product from '../../../components/models/products.models';
+import Product from '../../../models/products.models';
 import { RemoveButton } from "../../../components/remove-button/remove-button";
 import { Cart } from '../../../services/cart';
 
