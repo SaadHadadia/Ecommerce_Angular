@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import Product from '../../models/products.models';
+import Product from '../../components/models/products.models';
 import { ProductCard } from "./product-card/product-card";
 
 @Component({
@@ -16,12 +16,12 @@ import { ProductCard } from "./product-card/product-card";
 })
 export class ProductsList {
 
+  products = signal<Product[]>([]);
+
   async ngOnInit() {
     const res = await fetch('https://fakestoreapiserver.reactbd.org/api/products');
     const data = await res.json();
     this.products.set(data.data);
-    console.log(this.products());
   }
 
-  products = signal<Product[]>([]);
 }

@@ -1,20 +1,21 @@
-import { Component, inject, input, Input } from '@angular/core';
-import Product from '../../../models/products.models';
+import { Component, inject, input} from '@angular/core';
+import Product from '../../../components/models/products.models';
 import { Cart } from '../../../services/cart';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
-  imports: [],
+  imports: [RouterLink],
   template: `
     <div class="max-w-lg mx-auto p-4">
-      <div class="bg-white shadow-md rounded-lg max-w-2xs relative">
-        <a href="/product/{{ product()._id }}">
-          <img class="rounded-t-lg p-4" [src]="product().image" alt="product image">
-        </a>
+      <div class="bg-white shadow-md rounded-lg max-w-2xs relative cursor-pointer" [routerLink]="'/product/' + product()._id">
+        <div class="relative overflow-hidden h-full max-h-[300px]">
+          <div class="block pt-6">
+            <img class="rounded-t-lg p-4 w-full h-auto object-contain" [src]="product().image" alt="product image">
+          </div>
+        </div>
         <div class="px-5 pb-5">
-          <a href="/product/{{ product()._id }}">
-            <h3 class="text-gray-900 font-semibold text-lg tracking-tight">{{ product().title }}</h3>
-          </a>
+          <h3 class="text-gray-900 font-semibold text-lg tracking-tight">{{ product().title }}</h3>
           <div class="flex items-center mt-2.5 mb-5">
             <svg class="w-4 h-4 text-yellow-300" fill="currentColor" viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
@@ -48,14 +49,26 @@ import { Cart } from '../../../services/cart';
             </svg>
             <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded ml-3">{{ product().rating }}</span>
           </div>
-          <div class="flex items-center justify-between">
-            <span class="text-xl font-bold text-gray-900">$ {{ product().price }}</span>
-            <button
-              [disabled]="!product().stock"
-              (click)="cartService.addToCart(product())"
-              class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
-              Add to cart
-            </button>
+          <div class="flex items-end justify-between">
+            <div class="flex flex-col ">
+              <span class="text-[12px] line-through text-gray-400">$ {{ product().price }}</span>
+              <span class="text-lg font-bold text-gray-900">$ {{ product().discountedPrice }}</span>
+            </div>
+            @if( !isInCart(product()._id) ) {
+              <button
+                [disabled]="!product().stock"
+                (click)="$event.stopPropagation(); cartService.addToCart(product())"
+                class="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                Add to cart
+              </button>
+            } @else {
+              <button
+                (click)="$event.stopPropagation()"
+                routerLink="/cart"
+                class="hover:text-gray-900 focus:text-gray-900 bg-blanchedalmond-hover hover:bg-orange-400 focus:bg-orange-400 font-medium rounded-lg text-sm px-3 py-2.5 text-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowe">
+                In Cart
+              </button>
+            }
           </div>
         </div>
 
@@ -65,7 +78,6 @@ import { Cart } from '../../../services/cart';
           @if (product().stock) { {{product().stock}} left}
           @else { Out of Stock }
         </span>
-          
       </div>
     </div>
   `,
@@ -75,4 +87,8 @@ import { Cart } from '../../../services/cart';
 export class ProductCard {
   product = input.required<Product>();
   cartService = inject(Cart);
+
+  isInCart(productId: number): boolean {
+    return this.cartService.cart().some(product => product._id === productId);
+  }
 }

@@ -5,8 +5,8 @@ import { Component, output } from '@angular/core';
   imports: [],
   template: `
     <button
-      (click)="buttonClicked.emit()"
-      class="text-xs leading-3 underline text-red-500 cursor-pointer">
+      (click)="$event.stopPropagation(); buttonClicked.emit()"
+      class="text-xs leading-3 underline text-red-400 cursor-pointer hover:text-red-600">
       Remove</button>
   `,
   styles: ``
