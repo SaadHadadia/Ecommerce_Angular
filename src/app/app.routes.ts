@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { ProductsList } from './pages/products-list/products-list';
 import { Cart } from './pages/cart/cart';
 import { Product } from './pages/product/product';
+import { NotFound } from './pages/not-found/not-found';
 
 export const routes: Routes = [
     {
@@ -24,6 +25,6 @@ export const routes: Routes = [
     // 404 error
     {
         path: '**',
-        component: Cart
+        component: NotFound
     }
 ];
