@@ -75,9 +75,7 @@ import { RouterLink } from '@angular/router';
                 (click)="
                   $event.stopPropagation();
                   product() ? cartService.addToCart(product()!) : null
-                "
-
-                class="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                "class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
                 Add to cart
               </button>
             } @else {
