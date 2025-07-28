@@ -21,13 +21,19 @@ export class App {
     const currentUrl = this.router.url.split('?')[0].split('#')[0];
     const routes = this.router.config;
 
+    // Check if the current URL matches any route except the 404 route
     return routes.some(route => {
-      if (route.path === '**') return false;
 
+      // Ignore the 404 route
+      if (route.path === '**') return false;
+      
+      // Create a regex pattern to match the route path
+      // Replace route parameters with regex patterns and escape slashes
       const pattern = '^/' + (route.path
         ? route.path.replace(/:([^/]+)/g, '[^/]+').replace(/\//g, '\\/')
         : '') + '$';
 
+      // Test the current URL against the regex pattern
       return new RegExp(pattern).test(currentUrl);
     });
   }
