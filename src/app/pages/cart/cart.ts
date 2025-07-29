@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, HostListener} from '@angular/core';
+import { Component, inject, HostListener} from '@angular/core';
 import { CartItems } from "./cart-items/cart-items";
 import { Cart as CartService } from '../../services/cart';
 import { OrderSummary } from "./order-summary/order-summary";
