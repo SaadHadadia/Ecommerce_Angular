@@ -1,11 +1,13 @@
 import { Component, inject, HostListener} from '@angular/core';
 import { CartItems } from "./cart-items/cart-items";
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Cart as CartService } from '../../services/cart';
 import { OrderSummary } from "./order-summary/order-summary";
+import { PrimaryButtonMv } from "../../components/primary-button/primary-button-mv/primary-button-mv";
 
 @Component({
   selector: 'app-cart',
-  imports: [CartItems, OrderSummary],
+  imports: [CartItems, OrderSummary, PrimaryButtonMv],
   template: `
     <div class="grid md:grid-cols-3 md: grid-cols-1 gap-4 justify-center md:items-between md:mt-16 mt-20">
       <div class="md:col-span-2">
@@ -18,7 +20,7 @@ import { OrderSummary } from "./order-summary/order-summary";
           <app-order-summary />
         </div>
       } @else {
-        
+        <app-primary-button-mv />
       }
     </div>
   `,
@@ -42,16 +44,15 @@ import { OrderSummary } from "./order-summary/order-summary";
 export class Cart {
   
   cartService = inject(CartService);
+  
+  breakpointObserver = inject(BreakpointObserver);
 
-  isMobile = window.innerWidth < 768;
-
-  @HostListener('window:resize', [])
-  onResize() {
-    this.isMobile = window.innerWidth < 768;
-  }
+  isMobile: boolean = false;
 
   ngOnInit() {
-    this.isMobile = window.innerWidth < 768;
+    this.breakpointObserver.observe([`(max-width: 767px)`]).subscribe(result => {
+      this.isMobile = result.matches;
+    });
   }
 
 }
